@@ -1,39 +1,9 @@
 {
   "notes": [
     {
-      "content": "Hi",
-      "important": false,
+      "content": "adwad",
+      "important": true,
       "id": 1
-    },
-    {
-      "content": "general kemobi",
-      "important": false,
-      "id": 3
-    },
-    {
-      "content": "ahh ",
-      "important": false,
-      "id": 4
-    },
-    {
-      "content": "so this apparantly work",
-      "important": false,
-      "id": 5
-    },
-    {
-      "content": "s",
-      "important": true,
-      "id": 6
-    },
-    {
-      "content": "",
-      "important": false,
-      "id": 7
-    },
-    {
-      "content": "",
-      "important": true,
-      "id": 8
     }
   ]
 }
