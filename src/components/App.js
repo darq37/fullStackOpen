@@ -7,7 +7,7 @@ const App = () => {
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
 
-  const notestoShow = showAll ? notes : notes.filter((note) => note.important);
+  const notesToShow = showAll ? notes : notes.filter((note) => note.important);
 
   useEffect(() => {
     noteService.getNotes().then((initialNotes) => {
@@ -42,7 +42,7 @@ const App = () => {
         setNotes(notes.map((note) => (note.id !== id ? note : changedNote)));
       })
       .catch((error) => {
-        alert(`the note '${note.content}' was already deletedfrom the server`);
+        alert(`the note '${note.content}' was already deleted from the server`);
         setNotes(notes.filter((n) => n.id !== id));
       });
   };
@@ -56,7 +56,7 @@ const App = () => {
         </button>
       </div>
       <ul>
-        {notestoShow.map((note) => (
+        {notesToShow.map((note) => (
           <Note
             key={note.id}
             note={note}
