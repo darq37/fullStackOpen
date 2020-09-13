@@ -1,20 +1,20 @@
 import axios from "axios";
-const databaseUrl = "http://localhost:3002/api/notes";
+const backEndURL = "/api/notes";
 
 const getNotes = async () => {
-  const request = axios.get(databaseUrl);
+  const request = axios.get(backEndURL);
   const response = await request;
   return response.data;
 };
 
 const addNote = async (newObject) => {
-  const request = axios.post(databaseUrl, newObject);
+  const request = axios.post(backEndURL, newObject);
   const response = await request;
   return response.data;
 };
 
 const updateStatus = async (id, newObject) => {
-  const request = axios.put(`${databaseUrl}/${id}`, newObject);
+  const request = axios.put(`${backEndURL}/${id}`, newObject);
   const response = await request;
   return response.data;
 };
