@@ -13,6 +13,7 @@ const App = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const notesToShow = showAll ? notes : notes.filter((note) => note.important);
 
     useEffect(() => {
@@ -20,6 +21,15 @@ const App = () => {
             setNotes(initialNotes);
         });
     }, []);
+
+    useEffect(() => {
+        const loggedUser = window.localStorage.getItem('loggedUser')
+        if (loggedUser){
+            const user = JSON.parse(loggedUser)
+            setUser(user)
+            noteService.setToken(user.token)
+        }
+    },[])
 
     const addNote = (event) => {
         event.preventDefault();
@@ -33,6 +43,7 @@ const App = () => {
             setNewNote("");
         });
     };
+
 
     const handleNoteChange = (event) => {
         setNewNote(event.target.value);
@@ -58,6 +69,15 @@ const App = () => {
             });
     };
 
+    const handleLogout = (event) => {
+        event.preventDefault()
+        window.localStorage.removeItem('loggedUser')
+        setUser(null)
+        setUsername('')
+        setPassword('')
+        setIsLoggedIn(false)
+    }
+
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
@@ -65,7 +85,10 @@ const App = () => {
                 username, password,
             })
 
+            window.localStorage.setItem('loggedUser', JSON.stringify(user))
+
             noteService.setToken(user.token)
+            setIsLoggedIn(true)
             setUser(user)
             setUsername('')
             setPassword('')
@@ -102,6 +125,7 @@ const App = () => {
     )
 
     const noteForm = () => (
+
         <form onSubmit={addNote}>
             <input
                 value={newNote}
@@ -117,6 +141,7 @@ const App = () => {
             <Notification message={errorMessage}/>
             {user === null ? loginForm() : <div>
                 <p>Hi {user.name}, post some notes!</p>
+                <button onClick={handleLogout}>Log out</button>
                 {noteForm()}
             </div>}
             <div>
